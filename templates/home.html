@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+<h1>Hello from the Otherside.</h1>
+<h2>{{ name }}</h2>          {# Django Templating Language#}
+<h3>Age is {{age}}</h3>
+{% for hobby in hobbies %}
+    <h2>{{ hobbies }}</h2><br>
+{% endfor %}
+</body>
+</html>
