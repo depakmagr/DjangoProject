@@ -1,0 +1,39 @@
+{% extends "crud/base.html" %}
+
+{% block content %}
+<h1>People's Information</h1>
+<h2>{{name}}</h2>
+<h2>{{age}}</h2>
+<h2>{{department}}</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Age</th>
+      <th scope="col">Department</th>
+      <th scope="col">Status</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for person in persons %}
+    <tr>
+      <td>{{ forloop.counter }}</td>
+      <td>{{ person.name }}</td>
+      <td>{{ person.email }}</td>
+      <td>{{ person.age }}</td>
+      <td>{{ person.department }}</td>
+      <td>
+        {% if person.is_active%}
+          Active
+        {% elif %}
+          Inactive
+        {% else%}
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

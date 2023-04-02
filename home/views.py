@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound
 from django.template import loader
+from .models import *
 
 
 def home(request):
@@ -30,9 +31,9 @@ def name_func(request, name):
 
 
 def template(request):
-    template = loader.get_template("home.html")
+    t = loader.get_template("home.html")
     context = {"name": "Deeps", "age": 234, "hobbies": ['Sports', 'Reading', 'Movies']}
-    template_data = template.render(context, request)
+    template_data = t.render(context, request)
     return HttpResponse(template_data)
     # return render(request, template_name="myapp/home.html")
 
@@ -71,3 +72,25 @@ def students(request):
 
 def index(request):
     return render(request, template_name="index.html")
+
+
+def about(request):
+    return render(request, template_name="about.html")
+
+
+# def students(request):
+#     # student = Student.objects.get(id=1)
+#     # context = {"name": student.name, "age": student.age, "department": student.department}
+#     context = {
+#         "Infos": Student.objects.all()
+#     }
+#
+#     return render(request, "students.html",context)
+
+
+def experience(request):
+    context = {
+        "experiences": Experience.objects.all(),
+    }
+
+    return render(request, "index.html", context)
