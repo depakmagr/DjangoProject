@@ -1,14 +1,16 @@
 {% extends "crud/base.html" %}
 
 {% block content %}
-<h1>People's Information</h1>
-<h2>{{name}}</h2>
-<h2>{{age}}</h2>
-<h2>{{department}}</h2>
+<div>
+  <h1>People's Information</h1>
+      <a href="{% url 'create' %}" class="btn btn-success"
+       style="float: right">Add Person</a>
+</div>
+
 <table class="table">
   <thead>
     <tr>
-      <th scope="col">#</th>
+      <th scope="col">S.N</th>
       <th scope="col">Name</th>
       <th scope="col">Email</th>
       <th scope="col">Age</th>
@@ -26,11 +28,15 @@
       <td>{{ person.age }}</td>
       <td>{{ person.department }}</td>
       <td>
-        {% if person.is_active%}
+        {% if person.is_active %}
           Active
-        {% elif %}
+        {% else %}
           Inactive
-        {% else%}
+        {% endif %}
+      </td>
+      <td>
+        <a href="{% url 'update' person.id %}" class="btn btn-primary">Update</a>
+        <a href="{% url 'delete' person.id %}" class="btn btn-danger">Delete</a>
       </td>
     </tr>
   {% endfor %}

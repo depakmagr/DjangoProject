@@ -1,0 +1,10 @@
+{% extends "crud/base.html" %}
+
+{% block content %}
+    <form method="POST" action="{% url "delete" person.id %}">
+        {% csrf_token %}
+        <h2>ARE YOU SURE YOU WANT TO DELETE PERSON{{ PERSON.NAME}}</h2>
+    <button type="submit" class="btn btn-danger">Delete Person</button>
+    <a href="{% url 'home' %}" class="btn btn-primary">Cancel</a>
+    </form>
+{% endblock %}

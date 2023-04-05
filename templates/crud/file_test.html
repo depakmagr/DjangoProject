@@ -1,0 +1,17 @@
+{% extends "crud/base.html" %}
+
+{% block content %}
+  <form method="post" action="{% url 'file_test' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    Upload Image
+    <input type="file" name="uploaded_file"><br><br>
+    <button type="submit" class="btn btn-primary">Upload</button>
+  </form>
+
+{% if infos %}
+  <h3>ALL IMAGES</h3>
+  {% for info in infos %}
+    <img src="{{ info.file.url}}" style="height: 200px; width: 300px">
+  {% endfor %}
+{% endif %}
+{% endblock %}

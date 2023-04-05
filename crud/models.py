@@ -11,3 +11,11 @@ class Person(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class FileStorage(models.Model):
+    file = models.FileField()
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
