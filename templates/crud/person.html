@@ -3,8 +3,11 @@
 {% block content %}
 <div>
   <h1>People's Information</h1>
+      <a href="{% url 'classroom' %}" class="btn btn-primary"
+       style="float: right">Classroom</a>
       <a href="{% url 'create' %}" class="btn btn-success"
        style="float: right">Add Person</a>
+
 </div>
 
 <table class="table">

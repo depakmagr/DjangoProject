@@ -1,0 +1,17 @@
+{% extends 'crud/base.html' %}
+
+{% block content %}
+<form method="POST" action="{% url 'add_classroom' %}" >
+  {% csrf_token %}
+    <h2>Classroom</h2>
+  <div class="row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail9">ClassRoom</label>
+      <input type="text" class="form-control" id="inputEmail5" placeholder="ClassRoom Name" name="classroom1" required>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary">Add classroom</button>
+    <a href="{% url 'home' %}" class="btn btn-danger">Cancel</a>
+</form>
+
+{% endblock %}

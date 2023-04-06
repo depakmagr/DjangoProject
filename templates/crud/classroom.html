@@ -1,0 +1,13 @@
+{% extends 'crud/base.html' %}
+
+{% block content %}
+<h1>{{ title }}</h1>
+<a href="{% url 'add_classroom' %}" class="btn btn-success">Add Classroom</a>
+<a href="{% url 'home' %}" class="btn btn-primary">Home</a>
+<ul class="list-group">
+  {% for class in classes %}
+  <li class="list-group-item">{{ class.name }}</li>
+  {% endfor %}
+</ul>
+
+{% endblock %}

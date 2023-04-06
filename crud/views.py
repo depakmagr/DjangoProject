@@ -62,5 +62,24 @@ def file_test(request):
         FileStorage.objects.create(file=file, name=file.name)
         return redirect('file_test')
 
-    context =  {"infos": FileStorage.objects.all()}
+    context = {"infos": FileStorage.objects.all()}
     return render(request, template_name="crud/file_test.html", context=context)
+
+
+def classroom(request):
+    context = {"title": "ClassRoom","classes": ClassRoom.objects.all()}
+
+    return render(request, template_name="crud/classroom.html", context=context)
+
+
+def add_classroom(request):
+    if request.method == 'POST':
+        name = request.POST.get("classroom1")
+        ClassRoom.objects.create(name=name)
+        return redirect('classroom')
+
+    context = {"title": "AddPerson"}
+    return render(request, template_name="crud/add_classroom.html", context=context)
+
+
+
