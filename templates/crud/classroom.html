@@ -2,12 +2,15 @@
 
 {% block content %}
 <h1>{{ title }}</h1>
-<a href="{% url 'add_classroom' %}" class="btn btn-success">Add Classroom</a>
-<a href="{% url 'home' %}" class="btn btn-primary">Home</a>
-<ul class="list-group">
+<div style="float: right">
+  <a href="{% url 'add_classroom' %}" class="btn btn-success">Add Classroom</a>
+  <a href="{% url 'home' %}" class="btn btn-primary">Home</a>
+</div>
+
+<div style="margin-top: 50px">
   {% for class in classes %}
-  <li class="list-group-item">{{ class.name }}</li>
+  <h3>{{ class.name }}</h3>
   {% endfor %}
-</ul>
+</div>
 
 {% endblock %}

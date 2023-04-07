@@ -1,0 +1,29 @@
+{% extends "crud/base.html" %}
+{% load static %}
+
+{% block content %}
+    {% if person_profile %}
+        <h1>Detail of {{ person_profile.person.name }}</h1>
+        <div style="margin-top: 50px; align-items: center">
+            {% if person_profile.profile_picture%}
+                <img src="{{ person_profile.profile_picture.url }}"
+                 style="height: 200px; width: 200px, boarder-radius: 100px"><br>
+            {% else %}
+                <img src="{% static 'assets/default.png' %}"
+                 style="height: 200px; width: 200px, boarder-radius: 100px"><br>
+            {% endif %}
+            <b>Name:</b> {{ person_profile.person.name }}<br>
+            <b>Age:</b> {{ person_profile.person.age }}<br>
+            <b>Email:</b> {{ person_profile.person.email }}<br>
+            <b>Bio:</b> {{ person_profile.bio }}<br>
+            <b>Department:</b> {{ person_profile.person.department }}<br>
+            <b>Address:</b> {{ person_profile.person.address }}<br>
+            <b>Classroom:</b> {{ person_profile.classroom.name }}<br>
+            <b>Active:</b> {{ person_profile.person.is_active }}<br>
+        </div>
+    {% else%}
+        <h3>This person doesn't have profile.</h3>
+    {% endif%}
+    <a class="btn btn-primary" href="{% url 'home' %}">Home</a>
+
+{% endblock %}

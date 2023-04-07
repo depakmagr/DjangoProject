@@ -15,9 +15,15 @@ def create(request):
         age = request.POST.get("age")
         department = request.POST.get("department")
         status = True if request.POST.get("status") else False
-        person = Person.objects.create(name=name, email=email, age=age, department=department, is_active=status)
+        bio = request.POST.get("bio")
+        profile_picture = request.FILES.get("pp")
+        address = request.POST.get("address")
+        class_room = request.POST.get("classroom")
+        c = ClassRoom.objects.get(name=class_room)
+        p = Person.objects.create(name=name, email=email, age=age, department=department, is_active=status)
+        PersonProfile.objects.create(bio=bio, address=address, profile_picture=profile_picture, person=p, classroom=c)
         return redirect('home')
-    context = {"title": "Add Person"}
+    context = {"title": "Add Person", "classroom": ClassRoom.objects.all()}
     return render(request, template_name="crud/create.html", context=context)
 
 
@@ -67,7 +73,7 @@ def file_test(request):
 
 
 def classroom(request):
-    context = {"title": "ClassRoom","classes": ClassRoom.objects.all()}
+    context = {"title": "Classrooms", "classes": ClassRoom.objects.all()}
 
     return render(request, template_name="crud/classroom.html", context=context)
 
@@ -78,8 +84,17 @@ def add_classroom(request):
         ClassRoom.objects.create(name=name)
         return redirect('classroom')
 
-    context = {"title": "AddPerson"}
+    context = {"title": "Add Classroom"}
     return render(request, template_name="crud/add_classroom.html", context=context)
+
+
+def person_detail(request, id):
+    try:
+        person_profile = PersonProfile.objects.get(person_id=id)
+    except PersonProfile.DoesNotExist:
+        person_profile = None
+    context = {"title": f"Detail View", "person_profile": person_profile}
+    return render(request, "crud/detail_person.html", context=context)
 
 
 
