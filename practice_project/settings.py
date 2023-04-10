@@ -37,8 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions',
     'home',
     'crud',
+    'account',
 ]
 
 MIDDLEWARE = [
@@ -81,6 +83,17 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'practiceproject',
+#         'USER': "postgres",
+#         "PASSWORD": "password",
+#         "HOST": "127.0.0.1",
+#         "PORT": 5432
+#     }
+# }
 
 
 # Password validation
