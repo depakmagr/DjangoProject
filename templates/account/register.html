@@ -107,6 +107,9 @@
 				   		</div>
 					</form>
 				</div>
+				{% for message in messages %}
+					<p>{{ message }}</p>
+				{% endfor %}
 
 				<div class="mt-4">
 					<div class="d-flex justify-content-center links">
