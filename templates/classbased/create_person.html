@@ -1,0 +1,10 @@
+{% extends "crud/base.html" %}
+
+{% block content %}
+    <h1>{{ title }}</h1>
+    <form method="post" action="{% url 'create_person' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+{% endblock %}

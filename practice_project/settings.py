@@ -38,10 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
-    'home',
-    'crud',
-    'account',
 ]
+
+CUSTOM_APPS = ['home', 'crud', 'account', 'classbased',]
+
+INSTALLED_APPS += CUSTOM_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
