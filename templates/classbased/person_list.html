@@ -1,0 +1,47 @@
+{% extends "crud/base.html" %}
+
+{% block content %}
+<h1>People's Information</h1>
+<div style="float: right">
+      <a href="{% url 'classroom' %}" class="btn btn-primary">Classroom</a>
+      <a href="{% url 'create' %}" class="btn btn-success">Add Person</a>
+      <a href="{% url 'logout' %}" class="btn btn-warning">Logout</a>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">S.N</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Age</th>
+      <th scope="col">Department</th>
+      <th scope="col">Status</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for person in object_list %}
+    <tr>
+      <td>{{ forloop.counter }}</td>
+      <td>{{ person.name }}</td>
+      <td>{{ person.email }}</td>
+      <td>{{ person.age }}</td>
+      <td>{{ person.department }}</td>
+      <td>
+        {% if person.is_active %}
+          Active
+        {% else %}
+          Inactive
+        {% endif %}
+      </td>
+      <td>
+        <a href="{% url 'update' person.id %}" class="btn btn-primary">Update</a>
+        <a href="{% url 'delete' person.id %}" class="btn btn-danger">Delete</a>
+        <a href="{% url 'person_detail_view' person.id %}" class="btn" style="boarder-color: black">Detail</a>
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

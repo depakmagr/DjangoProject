@@ -6,7 +6,11 @@ from .models import *
 # Create your views here.
 @login_required
 def home(request):
-    context = {"persons": Person.objects.all()}
+    if request.user.is_superuser:
+        queryset = Person.objects.all()
+    else:
+        queryset = Person.objects.all()[:5]
+    context = {"persons": queryset, "title": "Home"}
     return render(request, template_name="crud/person.html", context=context)
 
 
