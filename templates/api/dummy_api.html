@@ -1,0 +1,32 @@
+{% extends "crud/base.html" %}
+
+{% block content %}
+<h1>Phone Information</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">ID</th>
+      <th scope="col">Title</th>
+      <th scope="col">Description</th>
+      <th scope="col">Price</th>
+      <th scope="col">Discount</th>
+      <th scope="col">Rating</th>
+      <th scope="col">Stock</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{ forloop.counter }}</td>
+      <td>{{ iphone.id }}</td>
+      <td>{{ iphone.title }}</td>
+      <td>{{ iphone.description }}</td>
+      <td>{{ iphone.price }}</td>
+      <td>{{ iphone.discountPercentage }}</td>
+      <td>{{ iphone.rating }}</td>
+      <td>{{ iphone.stock }}</td>
+    </tr>
+  </tbody>
+</table>
+{% endblock %}

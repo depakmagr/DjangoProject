@@ -1,11 +1,14 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, DetailView
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from crud.models import Person
 from .forms import PersonForm, PersonModelForm
 
 
 # Create your views here.
+@login_required
 def create_person(request):
     if request.method == "POST":
         form = PersonForm(request.POST)  #it runs validation
@@ -30,6 +33,7 @@ def create_person_model_form(request):
     return render(request, "classbased/create_person_model_form.html", context)
 
 
+@method_decorator(login_required, name="dispatch")
 class CreatePersonView(CreateView):
     model = Person
     template_name = "classbased/create_person_model_form.html"
