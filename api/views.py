@@ -2,11 +2,13 @@ import requests
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound
 
+from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.generics import ListAPIView, ListCreateAPIView, RetrieveAPIView, RetrieveUpdateDestroyAPIView
 
 from crud.models import Person
-from .serializers import PersonSerializer
+from .serializers import PersonSerializer, PersonModelSerializer
 
 
 # Create your views here.
@@ -70,7 +72,41 @@ class PersonSerializedView(APIView):
             Person.objects.create(name=name, email=email, age=age, department=department)
             return Response({
                 "message": "Person created successfully!!"
-            })
+            }, status=status.HTTP_200_OK)
         return Response({
             "message": "Invalid input!!!!"
-        })
+        }, status=status.HTTP_400_BAD_REQUEST)
+
+
+class PersonModelSerializedView(APIView):
+    def get(self, *args, **kwargs):
+        person = Person.objects.all()
+        serializer = PersonModelSerializer(person, many=True)     # this is serialization
+        return Response(serializer.data)
+
+    def post(self, *args, **kwargs):
+        serializer = PersonModelSerializer(data=self.request.data)  # this is diserialization
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response({"msg": serializer.errors})
+
+
+class PersonListView(ListAPIView):
+    serializer_class = PersonModelSerializer
+    queryset = Person.objects.all()
+
+
+class PersonListCreateView(ListCreateAPIView):
+    serializer_class = PersonModelSerializer
+    queryset = Person.objects.all()
+
+
+class PersonRetrieveView(RetrieveAPIView):
+    serializer_class = PersonModelSerializer
+    queryset = Person.objects.all()
+
+
+class PersonURDView(RetrieveUpdateDestroyAPIView):
+    serializer_class = PersonModelSerializer
+    queryset = Person.objects.all()
