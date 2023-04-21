@@ -5,10 +5,13 @@ from django.http import HttpResponse, HttpResponseNotFound
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.generics import ListAPIView, ListCreateAPIView, RetrieveAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.generics import ListAPIView, ListCreateAPIView, RetrieveAPIView,\
+    RetrieveUpdateDestroyAPIView
+from rest_framework.viewsets import ModelViewSet
 
-from crud.models import Person
-from .serializers import PersonSerializer, PersonModelSerializer
+from crud.models import Person, ClassRoom, PersonProfile
+from .serializers import PersonSerializer, PersonModelSerializer, ClassRoomModelSerializer,\
+    PersonProfileModelSerializer
 
 
 # Create your views here.
@@ -110,3 +113,29 @@ class PersonRetrieveView(RetrieveAPIView):
 class PersonURDView(RetrieveUpdateDestroyAPIView):
     serializer_class = PersonModelSerializer
     queryset = Person.objects.all()
+
+
+class PersonModelViewSet(ModelViewSet):
+    # serializer_class = PersonModelSerializer
+    # queryset = Person.objects.all()
+
+    def get_queryset(self):
+        if self.request.user.is_superuser:
+            return Person.objects.all()
+        return Person.objects.filter(id=5)
+
+    # This type of application can be modified and override.
+    def get_serializer_class(self):
+        if self.request.method.lower() == 'get':
+            return PersonModelSerializer
+        return PersonSerializer
+
+
+class ClassRoomModelViewSet(ModelViewSet):
+    serializer_class = ClassRoomModelSerializer
+    queryset = ClassRoom.objects.all()
+
+
+class PersonProfileModelViewSet(ModelViewSet):
+    serializer_class = PersonProfileModelSerializer
+    queryset = PersonProfile.objects.all()

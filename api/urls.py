@@ -1,6 +1,15 @@
 from django.urls import path
+from rest_framework.routers import DefaultRouter
+
+
 from .views import use_dummy_api, HelloWorld, PersonView, PersonSerializedView, PersonModelSerializedView,\
-    PersonListView, PersonListCreateView, PersonRetrieveView, PersonURDView
+    PersonListView, PersonListCreateView, PersonRetrieveView, PersonURDView, PersonModelViewSet,\
+    ClassRoomModelViewSet, PersonProfileModelViewSet
+
+router = DefaultRouter()
+router.register('person-viewset', PersonModelViewSet, basename='person_viewset')
+router.register('classroom-viewset', ClassRoomModelViewSet, basename='classroom_viewset')
+router.register('person-profile-viewset', PersonProfileModelViewSet, basename='person_profile_viewset')
 
 
 urlpatterns = [
@@ -16,4 +25,4 @@ urlpatterns = [
 
     # in urd u=update, r=retrieve, d=delete/destroy
     path("person-urd/<int:pk>", PersonURDView.as_view(), name="person_urd")
-]
+] + router.urls

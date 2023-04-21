@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from crud.models import Person
+from crud.models import Person, ClassRoom, PersonProfile
 
 
 class PersonSerializer(serializers.Serializer):
@@ -12,4 +12,21 @@ class PersonSerializer(serializers.Serializer):
 class PersonModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Person
-        fields = ['name', 'age', 'email', 'department',]
+        fields = ['id', 'name', 'age', 'email', 'department',]
+
+
+class ClassRoomModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ClassRoom
+        fields = "__all__"
+
+
+class PersonProfileModelSerializer(serializers.ModelSerializer):
+    classroom = ClassRoomModelSerializer()
+    person = PersonSerializer()
+
+    class Meta:
+        model = PersonProfile
+        fields = ['id', 'person', 'profile_picture', 'bio', 'address','classroom',]
+
+
