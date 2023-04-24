@@ -23,6 +23,7 @@ urlpatterns = [
     # path("", include('home.urls')),
     path("c/", include('classbased.urls')),
     path("api/", include('api.urls')),
+    path("api/crud/", include('api_crud.urls')),
     path("", include('account.urls')),
     path("", include('crud.urls')),
 
