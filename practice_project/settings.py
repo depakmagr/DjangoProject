@@ -39,8 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
-CUSTOM_APPS = ['home', 'crud', 'account', 'classbased', 'api', 'api_crud',]
-THIRD_PARTY_APPS = ['django_extensions', 'rest_framework',]
+CUSTOM_APPS = ['home', 'crud', 'account', 'classbased', 'api', 'api_crud']
+THIRD_PARTY_APPS = ['django_extensions', 'rest_framework', 'rest_framework.authtoken']
 
 INSTALLED_APPS += THIRD_PARTY_APPS + CUSTOM_APPS
 
@@ -143,4 +143,13 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = 'login'
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication"
+],
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated"
+    ]
+}
 

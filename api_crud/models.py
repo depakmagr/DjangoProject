@@ -41,3 +41,4 @@ class PersonProfile(UUIDModel):
                                   related_name="person_profile")
     profile_picture = models.FileField(upload_to="api_crud", null=True, blank=True)
     address = models.CharField(max_length=50)
+
