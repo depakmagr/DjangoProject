@@ -5,14 +5,14 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 # from rest_framework.authentication import TokenAuthentication
-# from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated
 from .viewsets import ListCreateUpdateDestroyViewSet, CreateUpdateDestroyViewSet, ListUpdateDestroyViewSet
 from .models import ClassRoom, Person, PersonProfile
+from .permissions import IsSuperAdminUser
 from .serializers import ClassRoomSerializer, PersonSerializer, PersonProfileSerializer, UserSerializer
 
 
 class ClassRoomViewSet(ListCreateUpdateDestroyViewSet):
-    permission_classes = [AllowAny, ]
     lookup_field = "uuid"
     lookup_url_kwarg = "uuid"
     # serializer_class = ClassRoomSerializer
@@ -22,6 +22,17 @@ class ClassRoomViewSet(ListCreateUpdateDestroyViewSet):
         if self.action == 'person':
             return PersonSerializer
         return ClassRoomSerializer
+
+    def get_permissions(self):
+        if self.action == "list":
+            return [AllowAny(), ]
+
+        elif self.action in ["create", "destroy"]:
+            return [IsSuperAdminUser(), ]
+
+        elif self.action in ["update", "people", "partial update"]:
+            return [IsAuthenticated(), ]
+        # return super().get_permissions()
 
     @action(detail=True)
     def people(self, *args, **kwargs):
