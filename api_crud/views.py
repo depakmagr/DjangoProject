@@ -39,7 +39,7 @@ class ClassRoomViewSet(ListCreateUpdateDestroyViewSet):
         elif self.action in ["create", "destroy"]:
             return [IsSuperAdminUser(), ]
 
-        elif self.action in ["update", "people", "partial update"]:
+        elif self.action in ["update", "people", "partial_update"]:
             return [IsAuthenticated(), ]
         # return super().get_permissions()
 
@@ -80,7 +80,8 @@ class PersonViewSet(ModelViewSet):
             return Response({
                 "message": "Profile for this person doesn't exist."
             })
-        serializer = self.get_serializer(p_profile)
+        serializer = self.get_serializer(p_profile, fields=['uuid', 'created_at', 'updated_at',
+                                                            'profile_picture', 'address'])
         return Response(serializer.data)
 
 

@@ -40,7 +40,7 @@ INSTALLED_APPS = [
 ]
 
 CUSTOM_APPS = ['home', 'crud', 'account', 'classbased', 'api', 'api_crud']
-THIRD_PARTY_APPS = ['django_extensions', 'rest_framework', 'rest_framework.authtoken', 'django_filters']
+THIRD_PARTY_APPS = ['django_extensions', 'rest_framework', 'rest_framework.authtoken', 'django_filters', 'rest_framework_swagger']
 
 INSTALLED_APPS += THIRD_PARTY_APPS + CUSTOM_APPS
 
@@ -146,13 +146,16 @@ LOGIN_URL = 'login'
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework.authentication.TokenAuthentication"
+        "rest_framework.authentication.TokenAuthentication",
+        "rest_framework.authentication.SessionAuthentication"
 ],
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticated"
     ],
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
 
-    "PAGE_SIZE": 5
+    "PAGE_SIZE": 5,
+
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
 }
 
